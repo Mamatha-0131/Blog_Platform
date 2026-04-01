@@ -1,0 +1,15 @@
+<h1>Blog Posts</h1>
+<a href="/create/">Create Post</a>
+{% for post in posts %}
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <h4>Comments:</h4>
+    {% for comment in post.comments.all %}
+        <p>{{ comment.text }}</p>
+    {% endfor %}
+    <form method="post" action="/comment/{{ post.id }}/">
+        {% csrf_token %}
+        <input type="text" name="text" placeholder="Add comment">
+        <button type="submit">Comment</button>
+    </form>
+{% endfor %}
